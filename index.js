@@ -47,6 +47,11 @@ app.get('/auth/return', passport.authenticate('google',
 		failureRedirect: '/'
 	}));
 
+app.get('/logout', function(req, res){
+  req.logout();
+  res.redirect('/');
+});
+
 var port = process.env.PORT || 4242;
 console.log('Listening on port ' + port);
 app.listen(port);
