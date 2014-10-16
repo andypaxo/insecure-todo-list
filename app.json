@@ -1,4 +1,5 @@
 {
 	"name": "To Do List",
-	"description": "An insecure website for pedagogical purposes"
+	"description": "An insecure website for pedagogical purposes",
+	"repository": "https://github.com/andypaxo/insecure-todo-list"
 }
