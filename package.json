@@ -9,7 +9,8 @@
 		"express": "4.9.x",
 		"express-session" : "1.8.x",
 		"passport": "0.2.x",
-		"passport-google-oauth": "0.1.x"
+		"passport-google-oauth": "0.1.x",
+		"pg": "3.6.x"
 	},
 	"repository": {
 		"type": "git",
