@@ -4,6 +4,8 @@ var app = express();
 var auth = require('./auth');
 auth.attachTo(app);
 
+var db = require('./db');
+
 app.get('/', function (req, res) {
 	res.send(req.user ?
 		'Signed in as user ' + req.user :
