@@ -1,26 +1,45 @@
 var express = require('express');
-var app = express();
-
+var session = require('express-session');
 var passport = require('passport');
-var AuthStrategy = require('passport-google').Strategy;
+
+var app = express();
+var AuthStrategy = require('passport-google-oauth').OAuth2Strategy;
+
+app.use(session({
+	secret: 'wonky harpsichord',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+	done(null, id);
+});
 
 passport.use(new AuthStrategy(
 	{
-		returnURL: 'http://hidden-beyond-5840.herokuapp.com/auth/return',
-		realm : 'http://hidden-beyond-5840.herokuapp.com/'
+	    clientID: process.env.google_client_id,
+	    clientSecret: process.env.google_client_secret,
+		callbackURL: process.env.google_callback_url
 	},
-	function(identifier, profile, done) {
-		console.log(arguments);
-		done();
+	function(token, tokenSecret, profile, done) {
+		//console.log(arguments);
+		done(null, profile);
 	}));
 
-console.log(process.env);
-
 app.get('/', function (req, res) {
-	res.send('<a href="/auth">Sign In with Google</a>');
+	res.send(req.user ?
+		'Signed in as user ' + req.user :
+		'<a href="/auth">Sign In with Google</a>');
 });
 
-app.get('/auth', passport.authenticate('google'));
+app.get('/auth', passport.authenticate('google', { scope: 'profile' }));
 
 app.get('/auth/return', passport.authenticate('google',
 	{
