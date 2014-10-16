@@ -1,7 +1,10 @@
 {
 	"name": "todo-list",
 	"description": "An insecure website for pedagogical purposes",
-	"version": "0.10.32",
+	"engines": {
+	"node": "0.10.x"
+	},
+	"version": "0.0.1",
 	"dependencies": {
 		"express": "~4.9.x"
 	}
