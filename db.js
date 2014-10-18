@@ -42,10 +42,22 @@
 				'INSERT INTO pb_users (id, name) SELECT $1, $2 WHERE NOT EXISTS (SELECT 1 FROM pb_users WHERE pb_users.id = $1)',
 				[user.id, user.name],
 				function (err) {
-					if (err)
-						throw err;
-					done();
+					done(err, user.id);
 				});
 		});
 	};
+
+	exports.fetchUser = function (id, done) {
+		pg.connect(db_url, function(err, client) {
+			if (err)
+				throw err;
+
+			client.query(
+				'SELECT id, name FROM pb_users WHERE pb_users.id = $1',
+				[id],
+				function (err, result) {
+					done(err, result.rows[0]);
+				});
+		});
+	}
 })();

@@ -33,14 +33,12 @@
 		{
 			id : user.id,
 			name : user.displayName
-		},
-		function () {
-			done(null, user.id);
-		});
+		}, done);
 	});
 
 	passport.deserializeUser(function(id, done) {
-		done(null, id);
+		console.log('Fetching user ' + id);
+		db.fetchUser(id, done);
 	});
 
 	passport.use(new AuthStrategy(
@@ -50,7 +48,6 @@
 			callbackURL: process.env.google_callback_url
 		},
 		function(token, tokenSecret, profile, done) {
-			//console.log(arguments);
 			done(null, profile);
 		}));
 

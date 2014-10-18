@@ -8,7 +8,7 @@ var db = require('./db');
 
 app.get('/', function (req, res) {
 	res.send(req.user ?
-		'Signed in as user ' + req.user :
+		'Signed in as ' + req.user.name :
 		'<a href="/auth">Sign In with Google</a>');
 });
 
