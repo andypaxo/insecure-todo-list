@@ -2,6 +2,7 @@
 	var session = require('express-session');
 	var passport = require('passport');
 	var AuthStrategy = require('passport-google-oauth').OAuth2Strategy;
+	var db = require('./db');
 
 	var attachTo = function (app) {
 		app.use(session({
@@ -28,7 +29,14 @@
 
 
 	passport.serializeUser(function(user, done) {
-	  done(null, user.id);
+		db.storeUser(
+		{
+			id : user.id,
+			name : user.displayName
+		},
+		function () {
+			done(null, user.id);
+		});
 	});
 
 	passport.deserializeUser(function(id, done) {
