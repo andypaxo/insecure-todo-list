@@ -10,7 +10,8 @@
 		"express-session" : "1.8.x",
 		"passport": "0.2.x",
 		"passport-google-oauth": "0.1.x",
-		"pg": "3.6.x"
+		"pg": "3.6.x",
+		"jade": "1.7.x"
 	},
 	"repository": {
 		"type": "git",
