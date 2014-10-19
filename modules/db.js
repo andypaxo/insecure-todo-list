@@ -9,7 +9,7 @@
 		});
 	};
 
-	pg.connect(db_url, function(err, client) {
+	pg.connect(db_url, function(err, client, connDone) {
 		if (err)
 			throw err;
 
@@ -34,7 +34,7 @@
 	});
 
 	exports.storeUser = function (user, done) {
-		pg.connect(db_url, function(err, client) {
+		pg.connect(db_url, function(err, client, connDone) {
 			if (err)
 				throw err;
 
@@ -42,13 +42,14 @@
 				'INSERT INTO pb_users (id, name) SELECT $1, $2 WHERE NOT EXISTS (SELECT 1 FROM pb_users WHERE pb_users.id = $1)',
 				[user.id, user.name],
 				function (err) {
+					connDone();
 					done(err, user.id);
 				});
 		});
 	};
 
 	exports.fetchUser = function (id, done) {
-		pg.connect(db_url, function(err, client) {
+		pg.connect(db_url, function(err, client, connDone) {
 			if (err)
 				throw err;
 
@@ -56,6 +57,7 @@
 				'SELECT id, name FROM pb_users WHERE pb_users.id = $1',
 				[id],
 				function (err, result) {
+					connDone();
 					done(err, result.rows[0]);
 				});
 		});

@@ -37,7 +37,6 @@
 	});
 
 	passport.deserializeUser(function(id, done) {
-		console.log('Fetching user ' + id);
 		db.fetchUser(id, done);
 	});
 
