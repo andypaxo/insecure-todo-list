@@ -2,6 +2,9 @@ extends ./layout.jade
 
 block content
 	p Logged in as #{username}
+	ul
+		each potion in potions
+			li= potion.name
 	form.pure-form(action='/create',method='post')
 		input.pure-input-2-3(name='name',placeholder='Potion name')
 		span &nbsp;

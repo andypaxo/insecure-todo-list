@@ -11,7 +11,12 @@ var db = require('./modules/db');
 
 app.get('/', function (req, res) {
 	if (req.user) {
-		res.render('potions.jade', { username : req.user.name });
+		db.getPotions(req.user.id, function (potions) {
+			res.render('potions.jade', {
+				username : req.user.name,
+				potions : potions
+			});
+		});
 	} else {
 		res.render('login.jade');
 	}
