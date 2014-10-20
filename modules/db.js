@@ -61,5 +61,22 @@
 					done(err, result.rows[0]);
 				});
 		});
-	}
+	};
+
+	exports.createPotion = function (potion, done) {
+		pg.connect(db_url, function(err, client, connDone) {
+			if (err)
+				throw err;
+
+			client.query(
+				'INSERT INTO pb_potions (user_id, name) VALUES ($1, $2)',
+				[potion.user_id, potion.name],
+				function (err) {
+					if (err)
+						throw err;
+					connDone();
+					done();
+				});
+		});
+	};
 })();
