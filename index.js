@@ -36,6 +36,15 @@ app.post('/create', function (req, res) {
 	}
 });
 
+app.get('/editpotion/:id', function (req, res) {
+	var potionId = req.params['id'];
+	if (potionId) {
+		db.fetchPotion(potionId, function (potion) {
+			res.render('editpotion.jade', potion);
+		});
+	}
+});
+
 var port = process.env.PORT || 4242;
 console.log('Listening on port ' + port);
 app.listen(port);

@@ -4,7 +4,8 @@ block content
 	p Logged in as #{username}
 	ul
 		each potion in potions
-			li= potion.name
+			li
+				a(href='/editpotion/'+potion.id)= potion.name
 	form.pure-form(action='/create',method='post')
 		input.pure-input-2-3(name='name',placeholder='Potion name')
 		span &nbsp;

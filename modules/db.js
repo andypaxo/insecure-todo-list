@@ -96,4 +96,21 @@
 				});
 		});
 	};
+
+	exports.fetchPotion = function (potionId, done) {
+		pg.connect(db_url, function(err, client, connDone) {
+			if (err)
+				throw err;
+
+			client.query(
+				'SELECT id, name FROM pb_potions WHERE pb_potions.id = $1',
+				[potionId],
+				function (err, result) {
+					if (err)
+						throw err;
+					connDone();
+					done(result.rows[0]);
+				});
+		});
+	};
 })();
