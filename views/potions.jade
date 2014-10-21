@@ -2,11 +2,14 @@ extends ./layout.jade
 
 block content
 	p Logged in as #{username}
-	ul
-		each potion in potions
-			li
-				a(href='/editpotion/'+potion.id)= potion.name
+	h2 My potions
+	.pure-menu.pure-menu-open
+		ul
+			each potion in potions
+				li
+					a(href='/editpotion/'+potion.id)= potion.name
+	h2 Add a potion
 	form.pure-form(action='/create',method='post')
 		input.pure-input-2-3(name='name',placeholder='Potion name')
 		span &nbsp;
-		button.pure-input-1-3.pure-button.pure-button-primary(type='submit') Add to book
+		button.pure-input-1-3.pure-button.pure-button-primary(type='submit') Add

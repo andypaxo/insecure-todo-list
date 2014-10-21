@@ -103,13 +103,30 @@
 				throw err;
 
 			client.query(
-				'SELECT id, name FROM pb_potions WHERE pb_potions.id = $1',
+				'SELECT id, name, description FROM pb_potions WHERE pb_potions.id = $1',
 				[potionId],
 				function (err, result) {
 					if (err)
 						throw err;
 					connDone();
 					done(result.rows[0]);
+				});
+		});
+	};
+
+	exports.updatePotion = function (potion, done) {
+		pg.connect(db_url, function(err, client, connDone) {
+			if (err)
+				throw err;
+
+			client.query(
+				'UPDATE pb_potions SET name = $1, description = $2 WHERE id = $3',
+				[potion.name, potion.description, potion.id],
+				function (err) {
+					if (err)
+						throw err;
+					connDone();
+					done();
 				});
 		});
 	};

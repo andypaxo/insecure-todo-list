@@ -1,7 +1,7 @@
 extends ./layout.jade
 
 block content
-  form.pure-form.pure-form-stacked(action='/edit',method='post')
+  form.pure-form.pure-form-stacked(action='/editpotion',method='post')
     input(type='hidden',name='id',value=id)
     input.pure-input-1(name='name',placeholder='Name',value=name)
     textarea.pure-input-1(name='description',placeholder='Description')= description

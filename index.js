@@ -38,10 +38,28 @@ app.post('/create', function (req, res) {
 
 app.get('/editpotion/:id', function (req, res) {
 	var potionId = req.params['id'];
-	if (potionId) {
+	if (potionId && req.user) {
+		// Uh-oh. Spot the mistake?
 		db.fetchPotion(potionId, function (potion) {
 			res.render('editpotion.jade', potion);
 		});
+	}
+});
+
+app.post('/editpotion', function (req, res) {
+	var potionId = req.param('id');
+	if (potionId && req.user)
+	{
+		// Same mistake again here
+		db.updatePotion({
+				id: potionId,
+				name: req.param('name'),
+				description: req.param('description')
+			}, function () {
+				res.redirect('/');
+			});
+	} else {
+		res.redirect('/');
 	}
 });
 
